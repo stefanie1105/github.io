@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Druid简介</title>
+      <link href="/2019/10/22/Druid%E7%AE%80%E4%BB%8B/"/>
+      <url>/2019/10/22/Druid%E7%AE%80%E4%BB%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Druid简介"><a href="#Druid简介" class="headerlink" title="Druid简介"></a>Druid简介</h2><p>Apache Druid (incubating) 是一个为对大型数据集进行快速切片和OLAP查询而设计的实时分析数据库。Druid作为数据库主要在以下场景被使用：</p><ul><li>实时数据采集</li><li>高性能的数据查询</li><li>要求服务高可用</li></ul><p>因此，Druid经常为BI提供支持，或者作为需要快速聚合的高并发接口的后端。Druid最适合处理面向事件的数据。</p><p>Druid常见的应用领域包括：</p><ul><li>点击流分析（网络和移动设备）</li><li>网络遥测分析（网络性能监测）</li><li>服务器指标存储</li><li>供应链分析（制造指标）</li><li>应用程序性能指标</li><li>数字营销/广告分析</li><li>商业智能（BI）/ OLAP</li></ul><p>Druid的核心架构结合了数据仓库、时序数据库和日志检索系统的思想。主要有如下特点：</p><ol><li>列式存储</li><li>可扩展的分布式系统</li><li>大规模的并行处理</li><li>实时或批量的数据采集</li><li>自愈、负载均衡、易于操作</li><li>云原生架构、不会丢失数据的容错架构</li><li>用户快速删选数据的索引</li><li>基于时间分区</li><li>近似算法</li><li>在数据采集时自动汇总</li></ol><h2 id="Druid选型"><a href="#Druid选型" class="headerlink" title="Druid选型"></a>Druid选型</h2><p>如果符合以下部分场景，Druid是一个很好的选择：</p><ul><li>插入频率高，但是很少更新（时序数据）</li><li>大多数的查询都是聚合和报表查询（分组查询）</li><li>对查询的延迟有要求（100ms到几分钟）</li><li>您的数据有一个时间组件</li><li>您可能有多个表，但每个查询只能访问一个大的分布式表。查询可能会遇到多个较小的“查找表”</li><li>您有高基数数据列（例如URL、用户ID），需要对它们进行快速计数和排名</li><li>您希望从kafka、HDFS、平面文件或类似Amazon S3的对象存储中加载数据</li></ul><p>对于以下场景，Druid并不擅长：</p><ul><li>您需要根据主键低延迟地更新数据（Druid支持流式插入，但不支持流式更新）</li><li>您正在构建一个离线的报表系统，并且对于查询延迟没有要求</li><li>您需要支持多表的JOIN操作，并且可以接受这些查询很耗时</li></ul><h2 id="Druid架构"><a href="#Druid架构" class="headerlink" title="Druid架构"></a>Druid架构</h2><p><img src="https://druid.apache.org/docs/latest/assets/druid-architecture.png" alt="Druid Architecture"></p><p>Druid服务包含以下节点类型：</p><ul><li>Coordinator</li><li>Overload</li><li>Broker</li><li>Router</li><li>Historical</li><li>MiddleManager</li></ul><p>除了上述内部的节点，Druid还有三个外部依赖：</p><ul><li><p>Zookeeper</p><p>Druid利用Zookeeper来实现集群状态的管理，主要实现如下操作：</p><ol><li>Coordinator节点Leader的选举</li><li>从Historical节点发布Segment</li><li>Coordinator和Historical间Segment的加载/删除</li><li>Overload和MiddleManager的任务管理</li></ol></li><li><p>Metadata Storage</p><p>在单节点中，它通常是本地存储的Apache Derby数据库（不适用于生产）</p><p>在集群模式中，它通常是MySQL或者PostgreSQL这样的关系型数据库</p></li><li><p>Deep Storage</p><p>支持HDFS、S3、Google Cloud Storage、Microsoft Azure、Apache Cassandra、Rackspace Cloudfiles、Microsoft SQLServer等</p></li></ul><p>Druid的各服务节点可以部署在任务地方，但是为了更方便的部署，官方建议按照如下的服务类型进行部署：</p><ul><li><p>Master Servers</p><p>运行Coordinator和Overlord节点，管理数据可用性和采集</p></li><li><p>Query Servers</p><p>运行Broker和可选的Router节点，处理来自外部客户端的查询请求</p></li><li><p>Data Servers</p><p>运行Historical和MiddleManager节点，执行数据采集的工作并且存储所有可查询的数据</p></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Druid </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Java设计模式之单例模式</title>
       <link href="/2019/07/17/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
       <url>/2019/07/17/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
